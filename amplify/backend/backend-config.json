@@ -9,7 +9,7 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 180,
-              "description": "apiKey"
+              "description": "kiefa"
             }
           },
           "additionalAuthenticationProviders": []

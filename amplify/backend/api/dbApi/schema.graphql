@@ -1,17 +1,28 @@
-type Blog @model {
+type GameData @model {
   id: ID!
-  name: String!
-}
-
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
-  id: ID!
+  logo:String!
+  screenshots: [String!]
+  video: String!
   title: String!
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
+  releaseDate: String!
+  score: Int!
+  scoreImg: String!
+  description: String!
+  genre: String!
+  developer: String!
+  reviews: [Int!],
+  publisher: String!
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+type Review @model {
   id: ID!
-  postID: ID!
-  content: String!
+  reviewer: String!
+  date: String!
+  link: String!
+  description: String!
+}
+type p @model {
+  id: ID!
+  bbc: ID!
+  jj: Int
 }
