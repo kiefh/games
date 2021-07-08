@@ -1,9 +1,15 @@
-import React from "react"; import GridList from "@material-ui/core/GridList"; import gameDataAndroid from "../data/gameDataAndroid";
+import GridList from "@material-ui/core/GridList"; 
 import Grid from "@material-ui/core/Grid"; import { makeStyles } from '@material-ui/core/styles'; import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar'; import ListItemIcon from '@material-ui/core/ListItemIcon'; import {Link as RouterLink} from "react-router-dom";
 import Select, { components } from 'react-select'; import {GiBoxingGloveSurprise, GiCapeArmor, GiJigsawPiece, GiJumpAcross, GiMp5K, GiOpenBook, GiPlatform, GiShield,} from "react-icons/gi";
 import {BiFootball, MdGames} from "react-icons/all"; import {Divider} from "@material-ui/core";
+import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
+import { listGameData } from '../graphql/queries';
+import React, { useState, useEffect } from 'react';
 
+
+Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
+});
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -69,13 +75,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
+let gameList= [];
+let filteredGamesImmutable = [];
 let filteredGames = [];
 
 //filters android games data to only includes games that are coming soon - i.e where the date is > todays date.
 function filterMapByComingSoon() {
     let todayDate = new Date();
     let parseTodaysDate = Date.parse(todayDate);
-    for (let i of gameDataAndroid) {
+    for (let i of gameList) {
         let itemDate = (i.releaseDate);
         let parseItemDate = Date.parse(i.releaseDate);
         if (itemDate.includes("t.b.d")) {
@@ -85,12 +93,9 @@ function filterMapByComingSoon() {
             filteredGames.push(i);
         }
     }
+    filteredGamesImmutable = filteredGames;
+    console.log(filteredGamesImmutable)
 }
-
-//initialises game data map to be displayed
-filterMapByComingSoon();
-
-const filteredGamesImmutable = filteredGames;
 
 const { ValueContainer, Placeholder} = components;
 
@@ -121,6 +126,24 @@ const CustomValueContainer = ({ children, ...props }) => {
 
 
 export default function  ComingSoon(){
+
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        fetchGames();
+    }, []);
+
+        const fetchGames = async () => {
+            try{
+                const gameData = await API.graphql(graphqlOperation(listGameData))
+                gameList = gameData.data.listGameData.items;
+                setGames(gameList)
+                //initialises game data map to be displayed
+                filterMapByComingSoon();            }
+            catch(error) {
+                console.log("error fetching games", error);
+            }
+        }
 
     const [selectedGenreOption, setSelectedGenreOption] = React.useState(null);
 

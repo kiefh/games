@@ -1,7 +1,11 @@
-import React from "react"; import GridList from "@material-ui/core/GridList"; import reviewDataAndroid from "../data/reviewDataAndroid";
+import React from "react"; import GridList from "@material-ui/core/GridList"; 
 import Grid from "@material-ui/core/Grid"; import Typography from "@material-ui/core/Typography"; import Link from "@material-ui/core/Link";
 import Divider from "@material-ui/core/Divider"; import { withStyles } from '@material-ui/core/styles'; import ModalImage from "react-modal-image";
+import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
+import { listReviews } from '../graphql/queries';
 
+Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
+});
 //thematic styles for different elements
 const useStyles = theme => ({
     root: {
@@ -59,17 +63,37 @@ const useStyles = theme => ({
     },
 });
 
+let gameReviews= [];
+
+const fetchGames = async () => {
+    try{
+        const reviewData = await API.graphql(graphqlOperation(listReviews))
+        gameReviews = reviewData.data.listReviews.items;
+        }
+    catch(error) {
+        console.log("error fetching reviews", error);
+    }
+}
+
 class GameReviewsAndroid extends React.Component{
     constructor(props) {
         super(props);
     }
+
+    componentDidMount() {
+        fetchGames();
+      }
+      componentDidUpdate() {
+        fetchGames();
+      }
 
     render() {
         //imports data from the game that was clicked on in the previous screen
         const {gameTitle, genre, gameScoreImg, gameScreenshots, releaseDate, gameDev, gameDes, gameLogo, gameReview, gamePub} = this.props.location.state;
 
         const { classes } = this.props;
-        let gameReviews = [];
+
+        checkArr(gameReviews);
 
         //check to make sure the page only shows reviews that are linked to the current game
         function checkArr(arr) {
@@ -77,8 +101,7 @@ class GameReviewsAndroid extends React.Component{
                 if (gameReview.includes(i.id)) {gameReviews.push(i);}
             }
         }
-        checkArr(reviewDataAndroid);
-
+        
         return(
             <div>
                 <Grid container spacing={3} className={classes.root}>

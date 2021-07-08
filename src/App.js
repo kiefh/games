@@ -2,10 +2,7 @@ import './App.css'; import React, { Component, Fragment, useEffect, useState } f
 import GamesOfAllTime from './Pages/GamesOfAllTime.js'; import GameReviewsAndroid from "./Pages/GameReviewsAndroid"; import Homes from './Pages/Home'
 import {lightBlue} from "@material-ui/core/colors"; import {Box} from "@material-ui/core"; import ComingSoon from "./Pages/ComingSoon";
     import GamesOftheYear from "./Pages/GamesOftheYear"; import {withStyles} from '@material-ui/core/styles';
-import Layout from "./Layout"; import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from './aws-exports.js';
-import { listGameData } from './graphql/queries';
-
-Amplify.configure(awsmobile);
+import Layout from "./Layout"; 
 
 
 
@@ -48,22 +45,7 @@ class App extends Component{
 
     
     render() {
-        const { classes } = this.props;
-        //console.log(window.)
-
-        this.state = { games: [] };
-        const fetchGames = async () => {
-            try{
-                const gameData = await API.graphql(graphqlOperation(listGameData))
-                const gameList = gameData.data.listGameData.items;
-                console.log("test", gameList);
-                this.setState({ games: this.state.games = gameList});
-            }
-            catch(error) {
-                console.log("error fetching games", error);
-            }
-        }
-        fetchGames();
+        const { classes } = this.props;        
 
     return (
 

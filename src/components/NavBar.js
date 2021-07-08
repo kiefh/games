@@ -1,12 +1,15 @@
-import React, {useRef, useState} from "react"; import clsx from 'clsx'; import CssBaseline from '@material-ui/core/CssBaseline'; import AppBar from '@material-ui/core/AppBar';
+import React, {useRef, useState, useEffect} from "react"; import clsx from 'clsx'; import CssBaseline from '@material-ui/core/CssBaseline'; import AppBar from '@material-ui/core/AppBar';
     import Toolbar from '@material-ui/core/Toolbar'; import Divider from '@material-ui/core/Divider'; import ListItemIcon from '@material-ui/core/ListItemIcon';
     import {useTheme } from '@material-ui/core/styles'; import { makeStyles } from '@material-ui/core/styles'; import {Link as RouterLink} from "react-router-dom";
     import Grid from "@material-ui/core/Grid"; import SearchBar from "material-ui-search-bar"; import  Typography from "@material-ui/core/Typography"
     import { withStyles } from '@material-ui/core/styles'; import Button from '@material-ui/core/Button'; import Menu from '@material-ui/core/Menu'; import MenuItem from '@material-ui/core/MenuItem';
-    import {AiFillClockCircle, AiOutlineHome, AiOutlineTrophy, GiTrophy} from "react-icons/all";
-import GridList from "@material-ui/core/GridList";
-import gameDataAndroid from "../data/gameDataAndroid";
-import {Router} from "@material-ui/icons";
+    import {AiFillClockCircle, AiOutlineHome, AiOutlineTrophy, GiTrophy} from "react-icons/all"; import GridList from "@material-ui/core/GridList";
+    import {Router} from "@material-ui/icons";
+    import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
+    import { listGameData } from '../graphql/queries';
+
+Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
+});
 
 const StyledMenu = withStyles({
     paper: {
@@ -110,9 +113,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let gameDataFiltered = []
+let gameList = []
 
 
 export default function NavBar() {
+
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        fetchGames();
+    }, []);
+
+        const fetchGames = async () => {
+            try{
+                const gameData = await API.graphql(graphqlOperation(listGameData))
+                gameList = gameData.data.listGameData.items;
+                setGames(gameList)
+                }
+            catch(error) {
+                console.log("error fetching games", error);
+            }
+        }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [searchValue, setSearchValue] = React.useState(null);
@@ -138,7 +159,7 @@ export default function NavBar() {
         let searchValueLowerCase = searchValue.toLowerCase();
         let searchValueMinusSpecialCharacters = searchValueLowerCase.replace(/[^a-zA-Z ]/g, "");
         let searchWords = searchValueMinusSpecialCharacters.split(" ");
-        for (let game of gameDataAndroid) {
+        for (let game of gameList) {
             let gameTitleToLowerCase = game.title.toLowerCase();
             let gameTitleMinusSpecialCharacters = gameTitleToLowerCase.replace(/[^a-zA-Z ]/g, "");
             let gameWords = gameTitleMinusSpecialCharacters.split(" ");

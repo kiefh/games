@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react"; import GridList from "@material-ui/core/GridList"; import gameDataAndroid from "../data/gameDataAndroid"; import Grid from "@material-ui/core/Grid";
+import React, { useEffect, useState } from "react"; import GridList from "@material-ui/core/GridList"; import Grid from "@material-ui/core/Grid";
  import {makeStyles} from '@material-ui/core/styles'; import GridListTile from '@material-ui/core/GridListTile'; import GridListTileBar from '@material-ui/core/GridListTileBar';
     import Divider from "@material-ui/core/Divider"; import ListItemIcon from '@material-ui/core/ListItemIcon'; import {Link as RouterLink} from "react-router-dom";
     import Select, { components } from 'react-select'; import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
     import TitleIcon from '@material-ui/icons/Title'; import ScoreIcon from '@material-ui/icons/Score';
 import {GiBoxingGloveSurprise, GiJigsawPiece, GiJumpAcross, GiMp5K, GiOpenBook, GiPlatform, GiShield, GiCapeArmor} from "react-icons/gi"; import {BiFootball, MdGames} from "react-icons/all";
 import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
-import { listGameData } from '../graphql/queries';
+import { listGameData } from '../graphql/queries'; 
 
 Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
 });
@@ -77,25 +77,26 @@ const useStyles = makeStyles((theme) => ({
     }))
 
 let sortedGames = [];
+let gameList= [];
+let sortedGamesImmutable = [];
 
 //filters android games data to remove games that are unreleased - i.e where the date is > todays date.
 function removeComingSoon() {
     let todayDate = new Date();
     let parseTodaysDate = Date.parse(todayDate);
-    for (let i of gameDataAndroid) {
+    for (let i of gameList) {
         let itemDate = (i.releaseDate);
         let parseItemDate = Date.parse(i.releaseDate);
         if (!itemDate.includes("t.b.d") && parseTodaysDate > parseItemDate) {
             sortedGames.push(i);
         }
     }
+    sortedGamesImmutable = sortedGames;
+    console.log(sortedGamesImmutable)
    sortMapByScore();
 }
 
-//initialises game data map to be displayed
-removeComingSoon()
 
-const sortedGamesImmutable = sortedGames;
 
 const { ValueContainer, Placeholder} = components;
 
@@ -132,16 +133,16 @@ export default function  GamesOfAllTime(){
 
     useEffect(() => {
         fetchGames();
+        //initialises game data map to be displayed
 
     }, []);
 
         const fetchGames = async () => {
             try{
                 const gameData = await API.graphql(graphqlOperation(listGameData))
-                const gameList = gameData.data.listGameData.items;
-                console.log(
-                    gameList);
+                gameList = gameData.data.listGameData.items;
                 setGames(gameList)
+                removeComingSoon()
             }
             catch(error) {
                 console.log("error fetching games", error);

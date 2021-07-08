@@ -10,19 +10,18 @@ type GameData @model {
   description: String!
   genre: String!
   developer: String!
-  reviews: [Int!],
+  reviews: [Int!]
   publisher: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
-type Review @model {
+type Review @model  {
   id: ID!
   reviewer: String!
   date: String!
   link: String!
   description: String!
-}
-type p @model {
-  id: ID!
-  bbc: ID!
-  jj: Int
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
