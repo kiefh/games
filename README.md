@@ -1,5 +1,5 @@
 GameDroid
 
-A react web app. Android game review Aggregator 
+A react web app. Android game review aggregator 
 
 By Kiefa Howie
