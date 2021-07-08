@@ -82,6 +82,7 @@ let filteredGames = [];
 
 //filters android games data to only  games that are this year - i.e where the date is > todays date,  and are not unreleased
 function filterMapByDateThisYear() {
+    filteredGames = [];   
     const todaysDate = new Date()
     let parseTodaysDate = Date.parse(todaysDate);
     const yearToday = todaysDate.getFullYear()
@@ -130,6 +131,7 @@ const CustomValueContainer = ({ children, ...props }) => {
 
 export default function  GamesOftheYear(){
 
+    const [loading, setLoading] = useState(true) // set some state for loading
     const [games, setGames] = useState([]);
 
     useEffect(() => {
@@ -144,6 +146,7 @@ export default function  GamesOftheYear(){
                 gameList = gameData.data.listGameData.items;
                 setGames(gameList)
                 filterMapByDateThisYear();
+                setLoading(false) // set Loading to false when you have the data
             }
             catch(error) {
                 console.log("error fetching games", error);
@@ -175,6 +178,9 @@ export default function  GamesOftheYear(){
 
     const classes = useStyles();
 
+    if (loading) { 
+        return (<div>Replace me with a loading component...</div>)
+      }
     return(
         <div>
             <Grid container spacing={3} >

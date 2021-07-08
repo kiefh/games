@@ -82,6 +82,7 @@ let sortedGamesImmutable = [];
 
 //filters android games data to remove games that are unreleased - i.e where the date is > todays date.
 function removeComingSoon() {
+    sortedGames = [];   
     let todayDate = new Date();
     let parseTodaysDate = Date.parse(todayDate);
     for (let i of gameList) {
@@ -92,7 +93,7 @@ function removeComingSoon() {
         }
     }
     sortedGamesImmutable = sortedGames;
-    console.log(sortedGamesImmutable)
+    console.log(sortedGamesImmutable + "here")
    sortMapByScore();
 }
 
@@ -130,6 +131,7 @@ export default function  GamesOfAllTime(){
 
 
     const [games, setGames] = useState([]);
+    const [loading, setLoading] = useState(true) // set some state for loading
 
     useEffect(() => {
         fetchGames();
@@ -139,10 +141,14 @@ export default function  GamesOfAllTime(){
 
         const fetchGames = async () => {
             try{
+                
                 const gameData = await API.graphql(graphqlOperation(listGameData))
                 gameList = gameData.data.listGameData.items;
+                console.log("1" + gameList );
                 setGames(gameList)
+                console.log("2" + gameList);
                 removeComingSoon()
+                setLoading(false) // set Loading to false when you have the data
             }
             catch(error) {
                 console.log("error fetching games", error);
@@ -199,6 +205,9 @@ export default function  GamesOfAllTime(){
 
     const classes = useStyles();
 
+    if (loading) { 
+        return (<div>Replace me with a loading component...</div>)
+      }
     return(
             <div>
                 <Grid container spacing={3} >

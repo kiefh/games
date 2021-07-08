@@ -65,26 +65,32 @@ const useStyles = theme => ({
 
 let gameReviews= [];
 
-const fetchGames = async () => {
+
+class GameReviewsAndroid extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: null
+    }
+}
+
+fetchGames = async () => {
     try{
         const reviewData = await API.graphql(graphqlOperation(listReviews))
         gameReviews = reviewData.data.listReviews.items;
+        this.setState({ data: true})
         }
     catch(error) {
         console.log("error fetching reviews", error);
     }
 }
 
-class GameReviewsAndroid extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
-        fetchGames();
+        this.fetchGames();
       }
       componentDidUpdate() {
-        fetchGames();
+        this.fetchGames();
+        
       }
 
     render() {
@@ -97,11 +103,15 @@ class GameReviewsAndroid extends React.Component{
 
         //check to make sure the page only shows reviews that are linked to the current game
         function checkArr(arr) {
+            console.log(gameReviews)
             for (let i of arr) {
                 if (gameReview.includes(i.id)) {gameReviews.push(i);}
+                
             }
         }
-        
+        if (!this.state.data) {
+            return <div />
+        }
         return(
             <div>
                 <Grid container spacing={3} className={classes.root}>

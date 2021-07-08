@@ -83,7 +83,8 @@ let filteredGames = [];
 function filterMapByComingSoon() {
     let todayDate = new Date();
     let parseTodaysDate = Date.parse(todayDate);
-    for (let i of gameList) {
+         filteredGames = [];   
+        for (let i of gameList) {
         let itemDate = (i.releaseDate);
         let parseItemDate = Date.parse(i.releaseDate);
         if (itemDate.includes("t.b.d")) {
@@ -94,7 +95,6 @@ function filterMapByComingSoon() {
         }
     }
     filteredGamesImmutable = filteredGames;
-    console.log(filteredGamesImmutable)
 }
 
 const { ValueContainer, Placeholder} = components;
@@ -128,6 +128,7 @@ const CustomValueContainer = ({ children, ...props }) => {
 export default function  ComingSoon(){
 
     const [games, setGames] = useState([]);
+    const [loading, setLoading] = useState(true) // set some state for loading
 
     useEffect(() => {
         fetchGames();
@@ -137,9 +138,13 @@ export default function  ComingSoon(){
             try{
                 const gameData = await API.graphql(graphqlOperation(listGameData))
                 gameList = gameData.data.listGameData.items;
+                console.log(gameList );
                 setGames(gameList)
+                console.log(gameList );
                 //initialises game data map to be displayed
-                filterMapByComingSoon();            }
+                filterMapByComingSoon();   
+                setLoading(false) // set Loading to false when you have the data
+            }
             catch(error) {
                 console.log("error fetching games", error);
             }
@@ -169,6 +174,9 @@ export default function  ComingSoon(){
 
     const classes = useStyles();
 
+    if (loading) { 
+        return (<div>Replace me with a loading component...</div>)
+      }
     return(
         <div>
             <Grid container spacing={3} >
