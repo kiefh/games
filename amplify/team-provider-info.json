@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kiefa-dev-93923-authRole",
+      "UnauthRoleArn": "arn:aws:iam::337538053183:role/amplify-kiefa-dev-93923-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::337538053183:role/amplify-kiefa-dev-93923-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-kiefa-dev-93923-deployment",
+      "UnauthRoleName": "amplify-kiefa-dev-93923-unauthRole",
+      "StackName": "amplify-kiefa-dev-93923",
+      "StackId": "arn:aws:cloudformation:us-east-2:337538053183:stack/amplify-kiefa-dev-93923/0159aec0-dfc8-11eb-a83f-067388956bf2",
+      "AmplifyAppId": "dgpyhclhher2t"
+    }
+  }
+}
