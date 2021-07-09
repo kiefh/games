@@ -1,5 +1,7 @@
 import React from "react"; import {makeStyles} from "@material-ui/core/styles"; import {Link as RouterLink} from "react-router-dom";
-import {lightBlue} from "@material-ui/core/colors";
+import {lightBlue} from "@material-ui/core/colors"; import {Helmet} from "react-helmet";
+
+const TITLE = 'Android Game Critics'
 
 const useStyles = makeStyles((theme) => ({
     img:{
@@ -19,6 +21,9 @@ export default function Home(){
     const classes = useStyles();
     return(
         <div className={classes.rooty}>
+            <Helmet>
+          <title>{ TITLE }</title>
+        </Helmet>
                 <img src='/logoXl.png' className={classes.img}></img>
         <br/>
             <br/>

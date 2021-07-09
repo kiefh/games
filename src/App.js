@@ -3,8 +3,9 @@ import GamesOfAllTime from './Pages/GamesOfAllTime.js'; import GameReviewsAndroi
 import {lightBlue} from "@material-ui/core/colors"; import {Box} from "@material-ui/core"; import ComingSoon from "./Pages/ComingSoon";
     import GamesOftheYear from "./Pages/GamesOftheYear"; import {withStyles} from '@material-ui/core/styles';
 import Layout from "./Layout"; 
-
-
+import ContactUs from './Pages/ContactUs';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
+import TermsOfUse from './Pages/TermsOfUse';
 
 const useStyles = theme => ({
     root: {
@@ -58,12 +59,12 @@ class App extends Component{
                     <Route exact path="/" component={Homes}/>
                     <div className={classes.body}>
                         <Route path="/games-of-all-time" component={GamesOfAllTime}/>
-                    <Route path="/games-of-the-year" component={GamesOftheYear}/>
+                    <Route path="/games-of-the-year" component={GamesOftheYear} />
                     <Route path="/coming-soon" component={ComingSoon}/>
                     <Route path="/game-reviews" component={GameReviewsAndroid}/>
-                    <Route path="/terms-of-use" component={GamesOfAllTime}/>
-                    <Route path="/contact-us" component={GamesOftheYear}/>
-                    <Route path="/privacy-policy" component={ComingSoon}/>
+                    <Route path="/terms-of-use" component={TermsOfUse}/>
+                    <Route path="/contact-us" component={ContactUs}/>
+                    <Route path="/privacy-policy" component={PrivacyPolicy}/>
                     </div>
                 </Switch>
             </Layout>

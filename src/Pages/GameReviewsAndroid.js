@@ -3,9 +3,14 @@ import Grid from "@material-ui/core/Grid"; import Typography from "@material-ui/
 import Divider from "@material-ui/core/Divider"; import { withStyles } from '@material-ui/core/styles'; import ModalImage from "react-modal-image";
 import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
 import { listReviews } from '../graphql/queries';
+import {Helmet} from "react-helmet";
+
 
 Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
 });
+
+const TITLE = 'Reviews'
+
 //thematic styles for different elements
 const useStyles = theme => ({
     root: {
@@ -86,6 +91,7 @@ fetchGames = async () => {
 }
 
     componentDidMount() {
+        document.title = 'Your page title here';
         this.fetchGames();
       }
       componentDidUpdate() {
@@ -110,10 +116,15 @@ fetchGames = async () => {
             }
         }
         if (!this.state.data) {
-            return <div />
-        }
-        return(
+                return (<div>Loading...Please wait</div>)
+              }        
+              
+              return(
+
             <div>
+                <Helmet>
+          <title>{ TITLE }</title>
+        </Helmet>
                 <Grid container spacing={3} className={classes.root}>
                     <Grid item xs={12} />
                     <Grid item xs={12} />

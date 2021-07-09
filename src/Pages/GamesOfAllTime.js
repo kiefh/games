@@ -4,11 +4,14 @@ import React, { useEffect, useState } from "react"; import GridList from "@mater
     import Select, { components } from 'react-select'; import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
     import TitleIcon from '@material-ui/icons/Title'; import ScoreIcon from '@material-ui/icons/Score';
 import {GiBoxingGloveSurprise, GiJigsawPiece, GiJumpAcross, GiMp5K, GiOpenBook, GiPlatform, GiShield, GiCapeArmor} from "react-icons/gi"; import {BiFootball, MdGames} from "react-icons/all";
-import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports'
-import { listGameData } from '../graphql/queries'; 
+import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
+import { listGameData } from '../graphql/queries'; import {Helmet} from "react-helmet";
+
 
 Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
 });
+
+const TITLE = 'Best Games of All Time'
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -206,10 +209,13 @@ export default function  GamesOfAllTime(){
     const classes = useStyles();
 
     if (loading) { 
-        return (<div>Replace me with a loading component...</div>)
+        return (<div>Loading...Please wait</div>)
       }
     return(
             <div>
+                <Helmet>
+          <title>{ TITLE }</title>
+        </Helmet>
                 <Grid container spacing={3} >
                 <Grid item xs={12} />
                     <Grid item xs={12} />

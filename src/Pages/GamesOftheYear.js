@@ -5,10 +5,13 @@ import {Link as RouterLink} from "react-router-dom"; import Select, { components
 import {GiBoxingGloveSurprise, GiCapeArmor, GiJigsawPiece, GiJumpAcross, GiMp5K, GiOpenBook, GiPlatform, GiShield} from "react-icons/gi";
 import {BiFootball, MdGames} from "react-icons/all";
 import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
-import { listGameData } from '../graphql/queries'; import React, { useState, useEffect } from 'react';
+import { listGameData } from '../graphql/queries'; import React, { useState, useEffect } from 'react'; import {Helmet} from "react-helmet";
+
 
 Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
 });
+
+const TITLE = 'Games of the Year'
 
 //styles
 const useStyles = makeStyles((theme) => ({
@@ -179,10 +182,13 @@ export default function  GamesOftheYear(){
     const classes = useStyles();
 
     if (loading) { 
-        return (<div>Replace me with a loading component...</div>)
+        return (<div>Loading...Please wait</div>)
       }
     return(
         <div>
+            <Helmet>
+          <title>{ TITLE }</title>
+        </Helmet>
             <Grid container spacing={3} >
                 <Grid item xs={12} />
                 <Grid item xs={12} />
