@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"; import GridList from "@mater
     import Select, { components } from 'react-select'; import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
     import TitleIcon from '@material-ui/icons/Title'; import ScoreIcon from '@material-ui/icons/Score';
 import {GiBoxingGloveSurprise, GiJigsawPiece, GiJumpAcross, GiMp5K, GiOpenBook, GiPlatform, GiShield, GiCapeArmor} from "react-icons/gi"; import {BiFootball, MdGames} from "react-icons/all";
-import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-export'
+import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports'
 import { listGameData } from '../graphql/queries'; 
 
 Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"

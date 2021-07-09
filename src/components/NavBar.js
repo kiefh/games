@@ -5,7 +5,7 @@ import React, {useRef, useState, useEffect} from "react"; import clsx from 'clsx
     import { withStyles } from '@material-ui/core/styles'; import Button from '@material-ui/core/Button'; import Menu from '@material-ui/core/Menu'; import MenuItem from '@material-ui/core/MenuItem';
     import {AiFillClockCircle, AiOutlineHome, AiOutlineTrophy, GiTrophy} from "react-icons/all"; import GridList from "@material-ui/core/GridList";
     import {Router} from "@material-ui/icons";
-    import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-export';
+    import Amplify, { API, graphqlOperation } from 'aws-amplify'; import awsmobile from '../aws-exports';
     import { listGameData } from '../graphql/queries';
 
 Amplify.configure({...awsmobile,   aws_appsync_authenticationType: "API_KEY"
