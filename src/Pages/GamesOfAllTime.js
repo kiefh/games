@@ -144,18 +144,16 @@ export default function  GamesOfAllTime(){
 
         const fetchGames = async () => {
             try{
-                
                 const gameData = await API.graphql(graphqlOperation(listGameData))
                 gameList = gameData.data.listGameData.items;
                 console.log("1" + gameList );
                 setGames(gameList)
                 console.log("2" + gameList);
-                removeComingSoon()
+               // removeComingSoon()
                 setLoading(false) // set Loading to false when you have the data
             }
             catch(error) {
                 console.log("error fetching games", error);
-                console.log(gameData.data.listGameData.items);
             }
         }
 

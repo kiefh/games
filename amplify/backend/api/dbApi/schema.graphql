@@ -1,6 +1,6 @@
-type GameData @model {
+type GameData @model @auth(rules: [{allow: public}]) {
   id: ID!
-  logo:String!
+  logo: String!
   screenshots: [String!]
   video: String!
   title: String!
@@ -16,7 +16,7 @@ type GameData @model {
   updatedAt: AWSDateTime!
 }
 
-type Review @model  {
+type Review @model @auth(rules: [{allow: public}]) {
   id: ID!
   reviewer: String!
   date: String!
@@ -25,3 +25,4 @@ type Review @model  {
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
+  
