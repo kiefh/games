@@ -55,9 +55,9 @@ export const getReview = /* GraphQL */ `
     getReview(id: $id) {
       id
       reviewer
-      date
+      review_date
       link
-      description
+      review_quote
       createdAt
       updatedAt
     }
@@ -72,12 +72,12 @@ export const listReviews = /* GraphQL */ `
     listReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        reviewer
-        date
-        link
-        description
-        createdAt
-        updatedAt
+      reviewer
+      review_date
+      link
+      review_quote
+      createdAt
+      updatedAt
       }
       nextToken
     }

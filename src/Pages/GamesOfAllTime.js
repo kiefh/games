@@ -138,18 +138,17 @@ export default function  GamesOfAllTime(){
 
     useEffect(() => {
         fetchGames();
-        //initialises game data map to be displayed
-
+        //initialises game data map to be displaye
     }, []);
 
         const fetchGames = async () => {
-            try{
+            try{  
                 const gameData = await API.graphql(graphqlOperation(listGameData))
                 gameList = gameData.data.listGameData.items;
                 console.log("1" + gameList );
                 setGames(gameList)
                 console.log("2" + gameList);
-               // removeComingSoon()
+                removeComingSoon()
                 setLoading(false) // set Loading to false when you have the data
             }
             catch(error) {

@@ -1,28 +1,34 @@
 type GameData @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  logo: String!
-  screenshots: [String!]
-  video: String!
-  title: String!
-  releaseDate: String!
-  score: Int!
-  scoreImg: String!
-  description: String!
-  genre: String!
-  developer: String!
-  reviews: [Int!]
-  publisher: String!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  id: String!
+	logo: String!
+	screenshots: [String!]
+	video: String!
+	title: String!
+	releaseDate: String!
+	score: Int!
+	scoreImg: String!
+	description: String!
+	genre: String!
+	developer: String!
+	reviews: [Int!]
+	publisher: String!
+	createdAt: AWSDateTime!
+	updatedAt: AWSDateTime!
+	_version: Int!
+	_deleted: Boolean
+	_lastChangedAt: AWSTimestamp!
 }
 
 type Review @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  reviewer: String!
-  date: String!
-  link: String!
-  description: String!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  id: String!
+	reviewer: String!
+	link: String!
+	review_quote: String!
+	review_date: String!
+	createdAt: AWSDateTime
+	updatedAt: AWSDateTime
+	_version: Int
+	_deleted: Boolean
+	_lastChangedAt: AWSTimestamp!
 }
-  
+    

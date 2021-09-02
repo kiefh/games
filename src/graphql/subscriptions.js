@@ -69,9 +69,9 @@ export const onCreateReview = /* GraphQL */ `
     onCreateReview {
       id
       reviewer
-      date
+      review_date
       link
-      description
+      review_quote
       createdAt
       updatedAt
     }
@@ -82,9 +82,9 @@ export const onUpdateReview = /* GraphQL */ `
     onUpdateReview {
       id
       reviewer
-      date
+      review_date
       link
-      description
+      review_quote
       createdAt
       updatedAt
     }
@@ -95,9 +95,9 @@ export const onDeleteReview = /* GraphQL */ `
     onDeleteReview {
       id
       reviewer
-      date
+      review_date
       link
-      description
+      review_quote
       createdAt
       updatedAt
     }
