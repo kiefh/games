@@ -155,6 +155,7 @@ export default function  GamesOfAllTime(){
             }
             catch(error) {
                 console.log("error fetching games", error);
+                console.log(gameData.data.listGameData.items);
             }
         }
 
