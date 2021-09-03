@@ -17,7 +17,8 @@ type GameData @model @auth(rules: [{allow: public}]) {
 	_version: Int!
 	_deleted: Boolean
 	_lastChangedAt: AWSTimestamp!
-}
+		
+ }
 
 type Review @model @auth(rules: [{allow: public}]) {
   id: String!
