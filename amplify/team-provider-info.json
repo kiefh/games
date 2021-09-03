@@ -80,11 +80,6 @@
       "StackName": "amplify-kiefa-kiefa-145856",
       "StackId": "arn:aws:cloudformation:us-east-2:337538053183:stack/amplify-kiefa-kiefa-145856/ee743910-0bf5-11ec-b95a-06f5b3f14e84",
       "AmplifyAppId": "dgpyhclhher2t"
-    },
-    "categories": {
-      "auth": {
-        "kiefa9d6319d3": {}
-      }
     }
   }
 }
