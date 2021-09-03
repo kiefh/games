@@ -142,6 +142,7 @@ export default function  GamesOfAllTime(){
 
         const fetchGames = async () => {
             try{  
+                console.log("here");
                 const gameData = await API.graphql(graphqlOperation(listGameData, {limit:200}));
                 gameList = gameData.data.listGameData.items;
                 console.log(gameList.length);
