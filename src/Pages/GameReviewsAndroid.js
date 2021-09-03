@@ -69,6 +69,8 @@ const useStyles = theme => ({
 });
 
 let gameReviews= [];
+let selectedGameReviews= [];
+let beenChecked = true;
 
 
 class GameReviewsAndroid extends React.Component{
@@ -81,7 +83,7 @@ class GameReviewsAndroid extends React.Component{
 
 fetchGames = async () => {
     try{
-        const reviewData = await API.graphql(graphqlOperation(listReviews))
+        const reviewData = await API.graphql(graphqlOperation(listReviews, {limit:206}))
         gameReviews = reviewData.data.listReviews.items;
         this.setState({ data: true})
         }
@@ -98,21 +100,20 @@ fetchGames = async () => {
         this.fetchGames();
         
       }
-
     render() {
         //imports data from the game that was clicked on in the previous screen
         const {gameTitle, genre, gameScoreImg, gameScreenshots, releaseDate, gameDev, gameDes, gameLogo, gameReview, gamePub} = this.props.location.state;
 
         const { classes } = this.props;
 
-        checkArr(gameReviews);
+        if(beenChecked){checkArr(gameReviews);}
 
         //check to make sure the page only shows reviews that are linked to the current game
         function checkArr(arr) {
-            console.log(gameReviews)
             for (let i of arr) {
-                if (gameReview.includes(i.id)) {gameReviews.push(i);}
-                
+                if (gameReview == i.id) {selectedGameReviews.push(i);
+                beenChecked = false;
+                }
             }
         }
         if (!this.state.data) {
@@ -201,7 +202,7 @@ fetchGames = async () => {
                     {/* gridlist of all the different reviews */}
                     <div className={classes.gridListContainer}>
                     <GridList   cols={1} className={classes.gridList} spacing={20}>
-                    {gameReviews.map((tile) => (
+                    {selectedGameReviews.map((tile) => (
                         <Grid container >
                             <Grid item xs={12}/>
                             <Grid item xs={2} >
@@ -209,13 +210,13 @@ fetchGames = async () => {
                         </Grid>
                         <Grid item xs={3}>
                             <Typography className={classes.typography} style={{fontWeight: "bold"}}>{tile.reviewer}
-                                <Typography style={{color: 'black'}}> {tile.date}</Typography>
+                                <Typography style={{color: 'black'}}> {tile.review_date}</Typography>
                             </Typography>
                         </Grid>
                             <Grid item xs={7}/>
 
                             <Grid item xs={12}>
-                                <Typography className={classes.typography} style={{color: 'black'}}>{tile.description}</Typography>
+                                <Typography className={classes.typography} style={{color: 'black'}}>{tile.review_quote}</Typography>
                             </Grid>
                             <Grid item xs={12}/>
                             <Grid item xs={12}>

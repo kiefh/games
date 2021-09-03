@@ -140,7 +140,6 @@ export default function NavBar() {
     const [anchorSearchEl, setAnchorSearchEl] = React.useState(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-        console.log("here");
         console.log(event.currentTarget);
     };
 
@@ -150,7 +149,6 @@ export default function NavBar() {
     }
 
     function openSearchMenu(){
-        console.log(gameDataFiltered)
         setAnchorSearchEl(ref1.current);
     }
 

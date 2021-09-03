@@ -52,7 +52,7 @@ export const listGameData = /* GraphQL */ `
 `;
 export const getReview = /* GraphQL */ `
   query GetReview($id: ID!) {
-    getReview(id: $id) {
+    getReview(id: $id,) {
       id
       reviewer
       review_date
@@ -69,7 +69,7 @@ export const listReviews = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-    listReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listReviews(limit: 20, filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
       reviewer

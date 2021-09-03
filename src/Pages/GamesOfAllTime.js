@@ -96,7 +96,6 @@ function removeComingSoon() {
         }
     }
     sortedGamesImmutable = sortedGames;
-    console.log(sortedGamesImmutable + "here")
    sortMapByScore();
 }
 
@@ -143,11 +142,10 @@ export default function  GamesOfAllTime(){
 
         const fetchGames = async () => {
             try{  
-                const gameData = await API.graphql(graphqlOperation(listGameData))
+                const gameData = await API.graphql(graphqlOperation(listGameData, {limit:200}));
                 gameList = gameData.data.listGameData.items;
-                console.log("1" + gameList );
+                console.log(gameList.length);
                 setGames(gameList)
-                console.log("2" + gameList);
                 removeComingSoon()
                 setLoading(false) // set Loading to false when you have the data
             }

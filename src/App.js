@@ -12,6 +12,7 @@ const useStyles = theme => ({
         textAlign: 'center',
         background:"linear-gradient(to right top, #1c3862, #006196, #008ba5, #00b181, #23d12a)",
         minHeight:'82vh',
+        maxHeight: '700vh',
         color: lightBlue,
         fontFamily: 'Playfair Display',
         alignContent:"center",
