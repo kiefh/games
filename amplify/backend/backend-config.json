@@ -11,18 +11,7 @@
               "apiKeyExpirationDays": 7,
               "description": "api"  
             }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authkiefa9d6319d3"
-              }
-            }
-          ]
+          }
         }
       }
     }
