@@ -16,7 +16,8 @@ type GameData @model @auth(rules: [{allow: public}]) {
 	updatedAt: AWSDateTime!
 	_version: Int!
 	_deleted: Boolean
-	_lastChangedAt: AWSTimestamp!
+	_lastChangedAt: AWSTimestamp!	
+		
 		
  }
 
