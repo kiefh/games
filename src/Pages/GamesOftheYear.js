@@ -94,6 +94,7 @@ function filterMapByDateThisYear() {
         let itemDate = (i.releaseDate);
         let parseItemDate = Date.parse(i.releaseDate);
         let itemYear = itemDateObject.getFullYear()
+        console.log(itemDateObject);
         if (itemYear === yearToday && !itemDate.includes("t.b.d")
             && parseTodaysDate > parseItemDate) {
             filteredGames.push(i);
@@ -145,7 +146,7 @@ export default function  GamesOftheYear(){
 
         const fetchGames = async () => {
             try{
-                const gameData = await API.graphql(graphqlOperation(listGameData))
+                const gameData = await API.graphql(graphqlOperation(listGameData, {limit:214}));
                 gameList = gameData.data.listGameData.items;
                 setGames(gameList)
                 filterMapByDateThisYear();

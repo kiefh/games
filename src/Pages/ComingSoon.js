@@ -140,11 +140,9 @@ export default function  ComingSoon(){
 
         const fetchGames = async () => {
             try{
-                const gameData = await API.graphql(graphqlOperation(listGameData))
+                const gameData = await API.graphql(graphqlOperation(listGameData, {limit:214}));
                 gameList = gameData.data.listGameData.items;
-                console.log(gameList );
                 setGames(gameList)
-                console.log(gameList );
                 //initialises game data map to be displayed
                 filterMapByComingSoon();   
                 setLoading(false) // set Loading to false when you have the data

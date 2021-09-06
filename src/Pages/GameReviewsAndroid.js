@@ -83,7 +83,7 @@ class GameReviewsAndroid extends React.Component{
 
 fetchGames = async () => {
     try{
-        const reviewData = await API.graphql(graphqlOperation(listReviews, {limit:206}))
+        const reviewData = await API.graphql(graphqlOperation(listReviews, {limit:214}))
         gameReviews = reviewData.data.listReviews.items;
         this.setState({ data: true})
         }
