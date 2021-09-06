@@ -83,8 +83,9 @@ class GameReviewsAndroid extends React.Component{
 
 fetchGames = async () => {
     try{
-        const reviewData = await API.graphql(graphqlOperation(listReviews, {limit:214}))
+        const reviewData = await API.graphql(graphqlOperation(listReviews, {limit:300}))
         gameReviews = reviewData.data.listReviews.items;
+        console.log(gameReviews);
         this.setState({ data: true})
         }
     catch(error) {
@@ -111,6 +112,7 @@ fetchGames = async () => {
         //check to make sure the page only shows reviews that are linked to the current game
         function checkArr(arr) {
             for (let i of arr) {
+                console.log("herey");
                 if (gameReview == i.id) {selectedGameReviews.push(i);
                 beenChecked = false;
                 }
