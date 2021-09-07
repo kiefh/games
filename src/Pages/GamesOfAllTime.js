@@ -91,7 +91,6 @@ function removeComingSoon() {
     for (let i of gameList) {
         let itemDate = (i.releaseDate);
         let parseItemDate = Date.parse(i.releaseDate);
-        console.log(parseItemDate + "id no: " + i.id);
         if (!itemDate.includes("t.b.d") && parseTodaysDate > parseItemDate) {
             sortedGames.push(i);
         }
@@ -142,10 +141,8 @@ export default function  GamesOfAllTime(){
 
         const fetchGames = async () => {
             try{  
-                console.log("here");
                 const gameData = await API.graphql(graphqlOperation(listGameData, {limit:214}));
                 gameList = gameData.data.listGameData.items;
-                console.log(gameList[170]);
                 setGames(gameList)
                 removeComingSoon()
                 setLoading(false) // set Loading to false when you have the data

@@ -86,6 +86,8 @@ fetchGames = async () => {
         const reviewData = await API.graphql(graphqlOperation(listReviews, {limit:300}))
         gameReviews = reviewData.data.listReviews.items;
         this.setState({ data: true})
+            selectedGameReviews = [];
+            beenChecked = true;
         }
     catch(error) {
         console.log("error fetching reviews", error);
@@ -94,21 +96,22 @@ fetchGames = async () => {
 
     componentDidMount() {
         document.title = 'Your page title here';
+        
         this.fetchGames();
       }
       componentDidUpdate() {
         this.fetchGames();
+        
       }
     render() {
         //imports data from the game that was clicked on in the previous screen
         const {gameTitle, genre, gameScoreImg, gameScreenshots, releaseDate, gameDev, gameDes, gameLogo, gameReview, gamePub} = this.props.location.state;
-
         const { classes } = this.props;
 
         if(beenChecked){checkArr(gameReviews);}
-
         //check to make sure the page only shows reviews that are linked to the current game
         function checkArr(arr) {
+            console.log("here" + gameReview);
             for (let i of arr) {
                 let idNum = parseInt(i.id)
                 if (gameReview == i.id || gameReview.includes(idNum)) {selectedGameReviews.push(i);
@@ -119,6 +122,7 @@ fetchGames = async () => {
         if (!this.state.data) {
                 return (<div>Loading...Please wait</div>)
               }        
+              
               
               return(
 
