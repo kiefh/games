@@ -85,7 +85,6 @@ fetchGames = async () => {
     try{
         const reviewData = await API.graphql(graphqlOperation(listReviews, {limit:300}))
         gameReviews = reviewData.data.listReviews.items;
-        console.log(gameReviews);
         this.setState({ data: true})
         }
     catch(error) {
@@ -99,7 +98,6 @@ fetchGames = async () => {
       }
       componentDidUpdate() {
         this.fetchGames();
-        
       }
     render() {
         //imports data from the game that was clicked on in the previous screen
@@ -112,8 +110,8 @@ fetchGames = async () => {
         //check to make sure the page only shows reviews that are linked to the current game
         function checkArr(arr) {
             for (let i of arr) {
-                console.log("herey");
-                if (gameReview == i.id) {selectedGameReviews.push(i);
+                let idNum = parseInt(i.id)
+                if (gameReview == i.id || gameReview.includes(idNum)) {selectedGameReviews.push(i);
                 beenChecked = false;
                 }
             }
